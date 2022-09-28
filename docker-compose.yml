@@ -1,21 +1,52 @@
 version: "3.9"
 
 services:
-  rabbitmq3:
-    container_name: rabbitmq3
-    image: rabbitmq:3.9.11-management-alpine
+  # Create service with RabbitMQ.
+  message-broker:
+    image: rabbitmq:3-management-alpine
+    container_name: message-broker
     ports:
-      - 15672:15672
-      - 5672:5672
-  redis:
-    container_name: redis
-    image: redis:alpine3.15
-    command: redis-server /usr/local/etc/redis/redis.conf
-    ports:
-      - 6379:6379
+      - 5672:5672 # for sender and consumer connections
+      - 15672:15672 # for serve RabbitMQ GUI
     volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ${HOME}/dev-rabbitmq/data/:/var/lib/rabbitmq
+      - ${HOME}/dev-rabbitmq/log/:/var/log/rabbitmq
+    restart: always
+    networks:
+      - dev-network
 
-  redis-client:
-    container_name: redis-client
-    image: redis:alpine3.15
+  # Create service with Fiber sender.
+  sender:
+    container_name: sender
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      dockerfile: Dockerfile-sender
+    environment:
+      AMQP_SERVER_URL: amqp://guest:guest@message-broker:5672/
+    restart: always
+    networks:
+      - dev-network
+    depends_on:
+      - message-broker
+
+  # Create service with message consumer.
+  consumer:
+    container_name: consumer
+    build:
+      context: .
+      dockerfile: Dockerfile-consumer
+    environment:
+      AMQP_SERVER_URL: amqp://guest:guest@message-broker:5672/
+    restart: always
+    networks:
+      - dev-network
+    depends_on:
+      - sender
+      - message-broker
+
+networks:
+  # Create a new Docker network.
+  dev-network:
+    driver: bridge
