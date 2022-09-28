@@ -12,3 +12,8 @@ Branch Developent
 
 *note
 protoc --go_out=. --go-grpc_out=. *proto
+
+*reference
+https://github.com/ftamhar/belajar-rabbitmq
+https://dev.to/aleksk1ng/go-rabbitmq-and-grpc-clean-architecture-microservice-2kdn
+https://www.youtube.com/playlist?list=PLy8btCmMxSlCbZ-qAdYpl1yBJdPGpLmk6
