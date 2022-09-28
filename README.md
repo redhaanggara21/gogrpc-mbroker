@@ -17,3 +17,5 @@ protoc --go_out=. --go-grpc_out=. *proto
 https://github.com/ftamhar/belajar-rabbitmq
 https://dev.to/aleksk1ng/go-rabbitmq-and-grpc-clean-architecture-microservice-2kdn
 https://www.youtube.com/playlist?list=PLy8btCmMxSlCbZ-qAdYpl1yBJdPGpLmk6
+https://devandchill.com/posts/2021/12/go-step-by-step-guide-for-implementing-tracing-on-a-microservices-architecture-2/2/
+https://www.facebook.com/golangtrends/posts/go-rabbitmq-and-grpc-clean-architecture-microservice-here-is-article-about-creat/1068103773702086/

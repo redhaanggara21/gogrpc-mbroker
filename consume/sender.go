@@ -30,6 +30,7 @@ func main() {
 		ContentType: "text/plain",
 		Body:        []byte(os.Args[1]),
 	})
+
 	if err != nil {
 		panic(errors.Wrap(err, "failed to publish message"))
 	}
