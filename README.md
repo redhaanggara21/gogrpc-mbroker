@@ -6,7 +6,9 @@ https://app.redislabs.com/#/subscriptions/subscription/1856019/bdb
 
 #Step running
 
-1. in terminal just exec: docker compose -up
+1. in terminal just exec to start: docker compose up
+2. to stop: docker-compose down
+3. to rebuild: docker-compose up -d
 # Branch
 Branch Developent
 
